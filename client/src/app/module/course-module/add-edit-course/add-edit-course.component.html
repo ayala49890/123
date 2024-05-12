@@ -1,0 +1,82 @@
+<h2 class="title" *ngIf="this.isEdit">{{ 'Edit Course:' }}</h2>
+<h2 class="title" *ngIf="!this.isEdit">{{ 'Add Course:' }}</h2>
+<form [formGroup]="courseForm" (ngSubmit)="onSubmit()" class="form-container">
+  <mat-form-field class="form-field">
+      <mat-label>Course Name</mat-label>
+      <input matInput formControlName="name" required>
+      <mat-error *ngIf="courseForm?.get('name').invalid && courseForm.get('name').touched">Course name is
+          required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form-field">
+    <mat-label>Course Description</mat-label>
+    <input matInput formControlName="description" required>
+    <mat-error *ngIf="courseForm?.get('description').invalid && courseForm.get('description').touched">Course description is
+        required</mat-error>
+</mat-form-field>
+
+  <mat-form-field class="form-field">
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="categoryId" required>
+          <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="courseForm?.get('categoryId').invalid && courseForm?.get('categoryId').touched">Category is
+          required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form-field">
+    <mat-label>Lecturer </mat-label>
+    <mat-select formControlName="lecturerId" required>
+        <mat-option *ngFor="let lecturer of lecturers" [value]="lecturer.id">{{lecturer.userName }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="courseForm?.get('lecturerId').invalid && courseForm?.get('lecturerId').touched">Lecturer is
+        required</mat-error>
+</mat-form-field>
+
+
+  <mat-form-field class="form-field">
+      <mat-label>Lessons Count</mat-label>
+      <input matInput type="number" formControlName="amount" required>
+      <mat-error *ngIf="courseForm.get('amount').invalid && courseForm.get('amount').touched">Please
+          provide a valid number of lessons</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form-field">
+      <mat-label>Start Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="beginDate" required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="courseForm.get('beginDate').invalid && courseForm.get('beginDate').touched">Start date is
+          required</mat-error>
+  </mat-form-field>
+
+  <div formArrayName="syllabus">
+      <div *ngFor="let syllabusControl of syllabusForms.controls; let i=index" class="form-field form-field-syl">
+          <mat-label>Syllabus {{ i + 1 }}</mat-label>
+          <input matInput [formControlName]="i" required (keypress)="onSyllabusKeyPress($event, i)" (input)="onInputDelete($event, i)">
+      </div>
+  </div>
+
+  <mat-form-field class="form-field">
+      <mat-label>Learning Type</mat-label>
+      <mat-select formControlName="learningType">
+          <mat-option [value]=1>Frontal</mat-option>
+          <mat-option [value]=2>Digital</mat-option>
+      </mat-select>
+      <mat-error
+          *ngIf="courseForm.get('learningType').invalid && courseForm.get('learningType').touched">Instruction
+          mode is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form-field">
+      <mat-label>Image URL</mat-label>
+      <input matInput formControlName="image" required>
+      <mat-error *ngIf="courseForm.get('image').invalid && courseForm.get('image').touched">Please provide a valid
+          image URL</mat-error>
+  </mat-form-field>
+
+  <button class="submit" *ngIf="!this.isEdit" mat-raised-button type="submit" [disabled]="courseForm.invalid">Submit</button>
+  <button class="submit" *ngIf="this.isEdit" mat-raised-button type="submit" [disabled]="courseForm.invalid">Save Changes</button>
+  <button class="cancel" mat-raised-button type="button" (click)="onCancel()">Cancel</button>
+
+</form>

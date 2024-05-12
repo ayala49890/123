@@ -1,0 +1,50 @@
+<div class="filters">
+
+    <mat-form-field class="search-input">
+        <mat-label>Search...</mat-label>
+        <mat-icon matPrefix>search</mat-icon>
+        <input [(ngModel)]="filterValue" (keyup)="filterCourses()" matInput #message maxlength="50"
+            placeholder="Ex. Social Work and Community Development">
+
+        <mat-hint align="end">{{message.value.length}} / 50</mat-hint>
+    </mat-form-field>
+
+   
+
+    <mat-form-field class="filter-category">
+      <mat-label>Categories</mat-label>
+      <mat-icon matPrefix>category</mat-icon>
+      <mat-select [(ngModel)]="categoriesFilter" (selectionChange)="filterCourses()">
+          <mat-option [value]="undefined">All</mat-option>
+          <mat-option *ngFor="let category of categories" [value]="category.id">
+              <mat-icon>{{ category.iconRouting }}</mat-icon>{{ category.name }}
+          </mat-option>
+      </mat-select>
+  </mat-form-field>
+
+
+
+    <mat-button-toggle-group (change)="filterCourses()">
+        <mat-button-toggle value="all" [checked]="true">All</mat-button-toggle>
+        <mat-button-toggle value="1">
+            <mat-icon>people</mat-icon>Frontal
+        </mat-button-toggle>
+        <mat-button-toggle value="2">
+            <mat-icon>videocam</mat-icon>Digital
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+
+</div>
+
+<div class="action-buttons">
+    <button class="btn-action" mat-button (click)="accordion.openAll()">
+       <mat-icon>keyboard_arrow_down</mat-icon> Expand All
+    </button>
+    <button class="btn-action" mat-button (click)="accordion.closeAll()">
+        <mat-icon>keyboard_arrow_up</mat-icon> Collapse All
+    </button>
+</div>
+
+<mat-accordion class="headers-align" multi>
+    <course-card *ngFor="let course of filteredCourses" [course]="course"></course-card>
+</mat-accordion>

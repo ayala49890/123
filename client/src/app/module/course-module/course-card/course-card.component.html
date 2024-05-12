@@ -1,0 +1,14 @@
+<mat-expansion-panel  [class.nextWeek]="checkDate(course)" [disabled]="!isLoggedIn()">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            <img src={{course.image}} alt={{course.name}} />
+        </mat-panel-title>
+        <mat-panel-description>
+            <b>  {{ course.name}}   </b>
+                <p class="par">  {{course.amount}}   Hours</p>
+            <br>
+            {{learnType[course.learningType]}}
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+<app-course-detailes ></app-course-detailes>
+</mat-expansion-panel>

@@ -1,0 +1,15 @@
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 60vh;
+}
+
+.form-container {
+    width: 300px;
+    text-align: center;
+}
+mat-form-field{
+  width: 250px;
+}
