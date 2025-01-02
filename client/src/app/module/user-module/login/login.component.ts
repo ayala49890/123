@@ -1,78 +1,3 @@
-// import { Component } from '@angular/core';
-// import { FormControl, Validators } from '@angular/forms';
-// import { Router } from '@angular/router';
-// import { User } from 'src/model/user.model';
-// import Swal from 'sweetalert2';
-// import { UserService } from './../user.service';
-
-// @Component({
-//   selector: 'app-login',
-//   templateUrl: './login.component.html',
-//   styleUrls: ['./login.component.css'],
-// })
-// export class LoginComponent {
-//   userName: string;
-//   userPassword: string;
-//   users: User[];
-//   hide = true;
-//   formSubmitted = false;
-//   showCourseField: boolean = false;
-//   course: string;
-
-//   userNameFormControl = new FormControl('', [Validators.required]);
-//   userPasswordFormControl = new FormControl('', [Validators.required]);
-
-//   constructor(private _userService: UserService, private _router: Router) {}
-
-//   ngOnInit(): void {
-//     this._userService.getUsers().subscribe((users) => (this.users = users));
-//   }
-//   enter() {
-//     this._userService.getUsers().subscribe((data) => {
-//       let currentUser = data.find((x) => x.userName == this.userName);
-//       console.log('currentUser', currentUser);
-//       if (currentUser) {
-//         if (currentUser?.password != this.userPassword)
-//           Swal.fire({
-//             title: `Wrong Password!!!`,
-//             icon: 'error',
-//             timer: 1000,
-//           });
-//         else {
-//           Swal.fire({
-//             title: `Welcome! ${this.userName}`,
-//             text: "You've logged in successfully!",
-//             icon: 'success',
-//           });
-//           sessionStorage.setItem(
-//             'isLecturer',
-//             JSON.stringify(currentUser?.isLecturer)
-//           );
-//           sessionStorage.setItem('userName', JSON.stringify(currentUser));
-//           this._router.navigate(['course/all']);
-//         }
-//       } else {
-//         Swal.fire({
-//           title: 'oops... you need to register',
-//           icon: 'warning',
-//         });
-//         this._router.navigate(['user/register'], {
-//           queryParams: { userName: this.userName },
-//         });
-//       }
-//     });
-//   }
-//   toggleCourseField() {
-//     this.showCourseField = !this.showCourseField;
-//   }
-// }
-
-
-
-
-
-
-
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -125,7 +50,6 @@ export class LoginComponent {
       return;
     }
 
-    // Check if the user is a lecturer
     this._userService.getLecturers().subscribe((lecturers: User[]) => {
       const lecturer: User = lecturers.find(
         (x: User) => x.userName === this.userName
@@ -149,7 +73,6 @@ export class LoginComponent {
           });
         }
       } else {
-        // Check if the user is a regular user
         const currentUser: User = this.users.find(
           (x: User) => x.userName === this.userName
         );
