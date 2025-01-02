@@ -6,17 +6,7 @@ import { User } from 'src/model/user.model';
 
 @Injectable()
 export class UserService {
-  //     login(user: User): Observable<User> {
-  //         return of(user);
-  //     }
-
-  //     register(user:User):Observable<User>  {
-  //         return of(user);
-  //     }
-
-  //     private currentUserSubject = new BehaviorSubject<User>(null);
-  //     currentUser$ = this.currentUserSubject.asObservable();
-
+  
   constructor(private _http: HttpClient) {}
   getUsers(): Observable<User[]> {
     // return of(USERS);
